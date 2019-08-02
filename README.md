@@ -1,6 +1,32 @@
 # 190802Homework
 
 ```mysql
+-- 顯示菜單
+create view vw_menu as
+select storeID, storeName, product.productName, product.productPrice
+from store
+left join product on store.storeID = product.storeID;
+
+-- 產生訂單
+insert into order(memberID, storeID, buildDate, endDate) 
+values ("memberID", "storeID", now(), "endDate");
+
+-- 取得未完結的訂單
+-- 頁面留下 order PK值
+select * from order
+where endDate > now();
+
+-- 團員訂購細節
+delimiter $$
+create procedure pro_createBuyWhat(memberName varchar(20),productName varchar(20), memberID int, storeID int, buildDate datetime)
+    begin
+        insert into buyWhat(buildDate, memberID, storeID, memberName, productName)
+        values (buildDate, memberID, storeID, memberName, productName);
+    end $$
+delimiter ;
+
+-- 產生訂單細節
+
 delimiter $$
 create procedure pro_orderConfirm(mID int, stID int, bDate datetime)
     declare done int default false;
@@ -48,6 +74,7 @@ create procedure pro_orderConfirm(mID int, stID int, bDate datetime)
         fetch curs into tmpProductName;
     end while;
 
+    close curs;
     -- 訂單內容更新
     update order set totalPrice = total 
     where memberID = mID 
