@@ -32,7 +32,7 @@ create procedure pro_orderConfirm(mID int, stID int, bDate datetime)
         and productName = tmpProductName;
         
         -- 取得單價
-        select unitPrice := productName
+        select unitPrice := productPrice
         where storeID = stID
         and productName = tmpProductName;
 
