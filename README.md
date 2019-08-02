@@ -55,4 +55,4 @@ create procedure pro_orderConfirm(mID int, stID int, bDate datetime)
     and buildDate = bDate;
 delimiter ;
 ```
-
+https://docs.google.com/presentation/d/1RvMDCe3Etc7kpidVLqKRRhn2vKf9_1d5W8Cf5H-jkqw/edit?usp=sharing
