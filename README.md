@@ -25,18 +25,16 @@ create procedure pro_orderConfirm(mID int, stID int, bDate datetime)
 
     while not done do
         -- 計算單一產品數量
-        set qty = 
-            select count(productName) from buyWhat 
-            where memberID = mID 
-            and storeID = stID
-            and buildDate = bDate
-            and productName = tmpProductName;
+        select qty:=count(productName) from buyWhat 
+        where memberID = mID 
+        and storeID = stID
+        and buildDate = bDate
+        and productName = tmpProductName;
         
         -- 取得單價
-        set unitPrice = 
-            select productName
-            where storeID = stID
-            and productName = tmpProductName;
+        select unitPrice := productName
+        where storeID = stID
+        and productName = tmpProductName;
 
         -- 插入資料
         insert into orderdetail(buildDate, memberID, storeID, productName, quantity)
